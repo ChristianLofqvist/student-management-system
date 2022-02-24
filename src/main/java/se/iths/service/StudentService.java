@@ -6,8 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Transactional
 public class StudentService {
@@ -38,5 +40,10 @@ public class StudentService {
 
     public List<Student> getAll() {
         return entityManager.createQuery("SELECT s FROM Student s", Student.class).getResultList();
+    }
+
+    public Student getById(Long id) {
+        return Optional.ofNullable(entityManager.find(Student.class, id))
+                .orElseThrow(() -> new NotFoundException("Could not find entity with id: " + id));
     }
 }

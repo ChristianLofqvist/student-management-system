@@ -46,4 +46,19 @@ public class StudentService {
         return Optional.ofNullable(entityManager.find(Student.class, id))
                 .orElseThrow(() -> new NotFoundException("Could not find entity with id: " + id));
     }
+
+    public Student patch(Student student, Long id) {
+        Student oldStudent = getById(id);
+
+        if (student.getFirstName() != null)
+            oldStudent.setFirstName(student.getFirstName());
+        if (student.getLastName() != null)
+            oldStudent.setLastName(student.getLastName());
+        if (student.getEmail() != null)
+            oldStudent.setEmail(student.getEmail());
+        if (student.getPhoneNumber() != null)
+            oldStudent.setPhoneNumber(student.getPhoneNumber());
+
+        return oldStudent;
+    }
 }

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -68,6 +69,15 @@ public class StudentRest {
     public Response getStudentById(@PathParam("id") Long id) {
         Student foundStudent = studentService.getById(id);
         return Response.ok(foundStudent)
+                .build();
+    }
+
+    @Path("{id}")
+    @PATCH
+    public Response update(@PathParam("id") Long id, Student student) {
+        Student patchedStudent = studentService.patch(student, id);
+
+        return Response.ok(patchedStudent)
                 .build();
     }
 }

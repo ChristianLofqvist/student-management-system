@@ -31,35 +31,35 @@ public class StudentRest {
     @Path("")
     @POST
     public Response createStudent(Student student) {
-        studentService.createStudent(student);
+        studentService.create(student);
         return Response.created(URI.create("/sms/students/" + student.getId())).build();
     }
 
     @Path("{id}")
     @PUT
     public Response updateStudent(Student student, @PathParam("id") Long id) {
-        studentService.updateStudent(student, id);
+        studentService.update(student, id);
         return Response.accepted(student).build();
     }
 
     @Path("query")
     @GET
     public Response getStudents(@QueryParam("lastName") String lastName) {
-        List<Student> foundStudents = studentService.getAllStudentsByLastName(lastName);
+        List<Student> foundStudents = studentService.getByLastName(lastName);
         return Response.ok(foundStudents).build();
     }
 
     @Path("")
     @GET
     public Response getAllStudents() {
-        List<Student> foundStudents = studentService.getAllStudents();
+        List<Student> foundStudents = studentService.getAll();
         return Response.ok(foundStudents).build();
     }
 
     @Path("{id}")
     @DELETE
     public Response deleteStudent(@PathParam("id") Long id) {
-        studentService.deleteStudent(id);
+        studentService.delete(id);
         return Response.ok().build();
     }
 }

@@ -5,6 +5,8 @@ import se.iths.service.StudentService;
 
 import javax.inject.Inject;
 
+import javax.validation.Validator;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,6 +30,9 @@ public class StudentRest {
     @Inject
     StudentService studentService;
 
+    @Inject
+    Validator validator;
+
 
     @Path("")
     @POST
@@ -39,8 +44,14 @@ public class StudentRest {
     @Path("{id}")
     @PUT
     public Response updateStudent(Student student, @PathParam("id") Long id) {
-        studentService.update(student, id);
-        return Response.accepted(student).build();
+        var validations = validator.validate(student);
+
+        if (validations.size() > 0)
+            throw new BadRequestException("Invalid student");
+
+        Student updatedStudent = studentService.update(student, id);
+        return Response.ok(updatedStudent)
+                .build();
     }
 
     @Path("query")

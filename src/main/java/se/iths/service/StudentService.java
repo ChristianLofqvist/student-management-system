@@ -21,10 +21,10 @@ public class StudentService {
         entityManager.persist(student);
     }
 
-    public void update(Student student, Long id) {
+    public Student update(Student student, Long id) {
         if (!Objects.equals(student.getId(), id))
-            throw new IllegalStateException("Provided student IDs do not match");
-        entityManager.merge(student);
+            throw new IllegalStateException("Provided student ids do not match");
+        return entityManager.merge(student);
     }
 
     public List<Student> getByLastName(String lastName) {

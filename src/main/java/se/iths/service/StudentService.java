@@ -28,7 +28,8 @@ public class StudentService {
     }
 
     public List<Student> getByLastName(String lastName) {
-        TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s WHERE s.lastName LIKE :lastName", Student.class);
+        TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s WHERE s.lastName LIKE :lastName",
+                Student.class);
         query.setParameter("lastName", "%" + lastName + "%");
         return query.getResultList();
     }
@@ -39,7 +40,8 @@ public class StudentService {
     }
 
     public List<Student> getAll() {
-        return entityManager.createQuery("SELECT s FROM Student s", Student.class).getResultList();
+        return entityManager.createQuery("SELECT s FROM Student s", Student.class)
+                .getResultList();
     }
 
     public Student getById(Long id) {

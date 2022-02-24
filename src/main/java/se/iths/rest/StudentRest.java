@@ -38,7 +38,8 @@ public class StudentRest {
     @POST
     public Response createStudent(Student student) {
         studentService.create(student);
-        return Response.created(URI.create("/sms/students/" + student.getId())).build();
+        return Response.created(URI.create("/sms/students/" + student.getId()))
+                .build();
     }
 
     @Path("{id}")
@@ -58,21 +59,24 @@ public class StudentRest {
     @GET
     public Response getStudents(@QueryParam("lastName") String lastName) {
         List<Student> foundStudents = studentService.getByLastName(lastName);
-        return Response.ok(foundStudents).build();
+        return Response.ok(foundStudents)
+                .build();
     }
 
     @Path("")
     @GET
     public Response getAllStudents() {
         List<Student> foundStudents = studentService.getAll();
-        return Response.ok(foundStudents).build();
+        return Response.ok(foundStudents)
+                .build();
     }
 
     @Path("{id}")
     @DELETE
     public Response deleteStudent(@PathParam("id") Long id) {
         studentService.delete(id);
-        return Response.ok().build();
+        return Response.ok()
+                .build();
     }
 
     @Path("{id}")

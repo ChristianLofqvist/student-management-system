@@ -1,6 +1,7 @@
 package se.iths.service;
 
 import se.iths.entity.Student;
+import se.iths.exceptions.InvalidIdException;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -29,9 +30,10 @@ public class StudentService {
 
     public Student update(Student student, Long id) {
         validateStudent(student);
-        if (!Objects.equals(student.getId(), id))
-            throw new IllegalStateException("Provided student ids do not match");
-        return entityManager.merge(student);
+        if (!Objects.equals(student.getId(), id)) {
+            throw new IllegalStateException("ID did not match given ID");
+        }
+        return entityManager.merge(getById(student.getId()));
     }
 
     private void validateStudent(Student student) {
@@ -48,6 +50,7 @@ public class StudentService {
     }
 
     public void delete(Long id) {
+        getById(id);
         Student foundStudent = entityManager.find(Student.class, id);
         entityManager.remove(foundStudent);
     }
@@ -59,7 +62,7 @@ public class StudentService {
 
     public Student getById(Long id) {
         return Optional.ofNullable(entityManager.find(Student.class, id))
-                .orElseThrow(() -> new NotFoundException("Could not find entity with id: " + id));
+                .orElseThrow(() -> new NotFoundException("Could not find entity with ID: " + id));
     }
 
     public Student patch(Student student, Long id) {

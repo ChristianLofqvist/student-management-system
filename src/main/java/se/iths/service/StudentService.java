@@ -2,10 +2,13 @@ package se.iths.service;
 
 import se.iths.entity.Student;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.validation.Validator;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Objects;
@@ -17,14 +20,24 @@ public class StudentService {
     @PersistenceContext
     EntityManager entityManager;
 
+    @Inject
+    Validator validator;
+
     public void create(Student student) {
         entityManager.persist(student);
     }
 
     public Student update(Student student, Long id) {
+        validateStudent(student);
         if (!Objects.equals(student.getId(), id))
             throw new IllegalStateException("Provided student ids do not match");
         return entityManager.merge(student);
+    }
+
+    private void validateStudent(Student student) {
+        var validations = validator.validate(student);
+        if (validations.size() > 0)
+            throw new BadRequestException("Invalid student");
     }
 
     public List<Student> getByLastName(String lastName) {

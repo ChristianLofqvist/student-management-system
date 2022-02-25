@@ -30,10 +30,6 @@ public class StudentRest {
     @Inject
     StudentService studentService;
 
-    @Inject
-    Validator validator;
-
-
     @Path("")
     @POST
     public Response createStudent(Student student) {
@@ -45,11 +41,6 @@ public class StudentRest {
     @Path("{id}")
     @PUT
     public Response updateStudent(Student student, @PathParam("id") Long id) {
-        var validations = validator.validate(student);
-
-        if (validations.size() > 0)
-            throw new BadRequestException("Invalid student");
-
         Student updatedStudent = studentService.update(student, id);
         return Response.ok(updatedStudent)
                 .build();

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -23,9 +25,11 @@ public class Subject {
     @Size(min = 2)
     private String name;
 
+    @NotEmpty
     @ManyToMany(targetEntity = Student.class)
-    Set<Student> student;
+    Set<Student> students;
 
+    @NotNull
     @ManyToOne(targetEntity = Teacher.class)
     Teacher teacher;
 
@@ -46,11 +50,11 @@ public class Subject {
     }
 
     public Set<Student> getStudent() {
-        return student;
+        return students;
     }
 
     public void setStudent(Set<Student> student) {
-        this.student = student;
+        this.students = student;
     }
 
     public Teacher getTeacher() {

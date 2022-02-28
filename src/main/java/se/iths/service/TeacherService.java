@@ -32,7 +32,7 @@ public class TeacherService {
         if (!Objects.equals(teacher.getId(), id)) {
             throw new IllegalStateException("ID did not match given ID");
         }
-        return entityManager.merge(getById(teacher.getId()));
+        return entityManager.merge(teacher);
     }
 
     private void validateTeacher(Teacher teacher) {

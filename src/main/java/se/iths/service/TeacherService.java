@@ -42,7 +42,7 @@ public class TeacherService {
     }
 
     public List<Teacher> getByLastName(String lastName) {
-        TypedQuery<Teacher> query = entityManager.createQuery("SELECT s FROM Teacher s WHERE s.lastName LIKE :lastName",
+        TypedQuery<Teacher> query = entityManager.createQuery("SELECT t FROM Teacher t WHERE t.lastName LIKE :lastName",
                 Teacher.class);
         query.setParameter("lastName", "%" + lastName + "%");
         return query.getResultList();
@@ -55,7 +55,7 @@ public class TeacherService {
     }
 
     public List<Teacher> getAll() {
-        return entityManager.createQuery("SELECT s FROM Teacher s", Teacher.class)
+        return entityManager.createQuery("SELECT t FROM Teacher t", Teacher.class)
                 .getResultList();
     }
 

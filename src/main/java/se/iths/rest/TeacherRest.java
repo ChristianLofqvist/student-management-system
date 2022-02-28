@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
 
-@Path("teacher")
+@Path("teachers")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class TeacherRest {

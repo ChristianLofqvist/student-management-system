@@ -31,7 +31,7 @@ public class SubjectService {
         if (!Objects.equals(subject.getId(), id)) {
             throw new IllegalStateException("ID did not match given ID");
         }
-        return entityManager.merge(getById(subject.getId()));
+        return entityManager.merge(subject);
     }
 
     private void validateSubject(Subject subject) {

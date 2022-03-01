@@ -75,4 +75,11 @@ public class SubjectRest {
         return Response.ok(patchedSubject)
                 .build();
     }
+
+    @Path("{id}/students")
+    @GET
+    public Response getAllStudentsInSubject(@PathParam("id") Long id) {
+        return Response.ok(subjectService.getAllStudents(id))
+                .build();
+    }
 }

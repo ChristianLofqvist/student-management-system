@@ -18,7 +18,6 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
     @NotBlank
@@ -49,11 +48,11 @@ public class Subject {
         this.name = name;
     }
 
-    public Set<Student> getStudent() {
+    public Set<Student> getStudents() {
         return students;
     }
 
-    public void setStudent(Set<Student> student) {
+    public void setStudents(Set<Student> student) {
         this.students = student;
     }
 

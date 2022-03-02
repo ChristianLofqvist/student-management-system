@@ -23,8 +23,10 @@ public class TeacherService {
     @Inject
     Validator validator;
 
-    public void create(Teacher teacher) {
+    public Teacher create(Teacher teacher) {
+        validateTeacher(teacher);
         entityManager.persist(teacher);
+        return teacher;
     }
 
     public Teacher update(Teacher teacher, Long id) {

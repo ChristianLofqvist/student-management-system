@@ -31,8 +31,9 @@ public class StudentRest {
     @Path("")
     @POST
     public Response createStudent(Student student) {
-        studentService.create(student);
+        Student newStudent = studentService.create(student);
         return Response.created(URI.create("/sms/students/" + student.getId()))
+                .entity(newStudent)
                 .build();
     }
 

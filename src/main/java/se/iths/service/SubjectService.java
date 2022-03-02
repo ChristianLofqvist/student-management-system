@@ -23,8 +23,10 @@ public class SubjectService {
     @Inject
     Validator validator;
 
-    public void create(Subject subject) {
+    public Subject create(Subject subject) {
+        validateSubject(subject);
         entityManager.persist(subject);
+        return subject;
     }
 
     public Subject update(Subject subject, Long id) {

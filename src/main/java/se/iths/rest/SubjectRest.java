@@ -32,6 +32,7 @@ public class SubjectRest {
     public Response createSubject(Subject subject) {
         subjectService.create(subject);
         return Response.created(URI.create("/sms/subjects/" + subject.getId()))
+                .entity(subject)
                 .build();
     }
 

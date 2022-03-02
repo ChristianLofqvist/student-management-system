@@ -31,8 +31,9 @@ public class TeacherRest {
     @Path("")
     @POST
     public Response createTeacher(Teacher teacher) {
-        teacherService.create(teacher);
+        Teacher newTeacher = teacherService.create(teacher);
         return Response.created(URI.create("/sms/teachers/" + teacher.getId()))
+                .entity(newTeacher)
                 .build();
     }
 

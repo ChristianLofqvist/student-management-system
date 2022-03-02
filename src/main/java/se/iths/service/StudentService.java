@@ -23,8 +23,10 @@ public class StudentService {
     @Inject
     Validator validator;
 
-    public void create(Student student) {
+    public Student create(Student student) {
+        validateStudent(student);
         entityManager.persist(student);
+        return student;
     }
 
     public Student update(Student student, Long id) {

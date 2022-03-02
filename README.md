@@ -8,7 +8,7 @@
 {\
 "email": "test@test.com",\
 "firstName": "ABC",\
-"id": 2,
+"id": 2,\
 "lastName": "XYZ",\
 "phoneNumber": "1234567891"\
 },\
